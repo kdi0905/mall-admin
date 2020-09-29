@@ -42,11 +42,11 @@
 	<table class ="table table-bordered table-hover table-striped"  style="text-align: center;">
 		<tr>
 			<td class ="text-dark ">관리자 ID</td>
-			<td><input type ="text" name ="adminId"></td>
+			<td><input type ="text" name ="adminId" value="admin@goodee.com"></td>
 		</tr>
 		<tr>
 			<td class ="text-dark ">관리자 PW</td>
-			<td><input type ="password" name ="adminPw"></td>
+			<td><input type ="password" name ="adminPw" value="1234"></td>
 		</tr>
 	</table>
 	<%if(session.getAttribute("loginAdminId")==null&&count==1){
