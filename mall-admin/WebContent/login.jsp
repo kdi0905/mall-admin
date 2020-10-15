@@ -25,7 +25,24 @@
 	}
 
 </style>
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+<script>
+$(document).ready(function() {
+	$("#btn").click(function(){
+		if($("#adminId").val()==""){
+			alert("ID를 입력해주세요");
+			return;
+		}else if($("#adminPw").val()==""){
+			alert("PW를 입력해주세요");
+			return;
+		}
+		$("#loginForm").submit();
+	})
+	
+})
+</script>
 </head>
 <body>
 <% int count = 0;
@@ -38,15 +55,16 @@
 	<div class ="container ">
 	<h1 class ="text-dark ">관리자 로그인</h1>
 	<!-- 절대주소사용 -->
-	<form method ="post" action = "/mall-admin/loginAction.jsp">
+	<form method ="post" action = "/mall-admin/loginAction.jsp" id="loginForm">
 	<table class ="table table-bordered table-hover table-striped"  style="text-align: center;">
 		<tr>
 			<td class ="text-dark ">관리자 ID</td>
-			<td><input type ="text" name ="adminId" value="admin@goodee.com"></td>
+			<td><input type ="text" id ="adminId" name ="adminId" value="admin@goodee.com"></td>
 		</tr>
 		<tr>
 			<td class ="text-dark ">관리자 PW</td>
-			<td><input type ="password" name ="adminPw" value="1234"></td>
+			<td><input type ="password" id="adminPw" name ="adminPw" value="1234"></td>
+			
 		</tr>
 	</table>
 	<%if(session.getAttribute("loginAdminId")==null&&count==1){
@@ -60,7 +78,7 @@
 			}
 	%>
 	
-	<button  class="btn btn-outline-secondary" type ="submit">로그인</button>
+	<button  class="btn btn-outline-secondary" type ="button" id="btn">로그인</button>
 	</form>
 	</div>
 	</div>

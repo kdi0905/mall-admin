@@ -31,7 +31,9 @@
 		$("#btn").click(function(){
 			if($("#productPic").val()==""){
 				alert("사진을 넣어주세요");
+				return;
 			}
+			$("#productPicForm").submit();
 		})
 	})
 </script>
