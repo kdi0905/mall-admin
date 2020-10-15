@@ -23,6 +23,19 @@
 	}
 
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function(){
+		$("#btn").click(function(){
+			if($("#categoryName").val()==""){
+				$("#categoryNameHelper").text("카테고리이름을 확인하세요");
+				return;
+			}
+			$("#categoryForm").submit();
+		});
+	});
+	</script>
 </head>
 <body>
 	<div>
@@ -31,16 +44,18 @@
 	<div class ="color">
 	<div class ="container " >
 	<h1 class ="text-dark ">카테고리 입력</h1>
-	<form method ="post" action ="/mall-admin/category/addCategoryAction.jsp">
+	<form method ="post" action ="/mall-admin/category/addCategoryAction.jsp" id="categoryForm">
 		<table class ="table table-bordered table-hover table-striped " style="text-align: center;">
 			<tr> 
 				<td> category_name</td>
-				<td><input type ="text" name ="categoryName"></td>
+				<td><input type ="text" name ="categoryName"id="categoryName"></td>
+			
 			</tr>
+				
 		</table>
+		<div class="text-danger" id="categoryNameHelper"></div>
 		
-		
-		<button  class="btn btn-outline-secondary" type = "submit">카테고리 추가</button>
+		<button  class="btn btn-outline-secondary" type = "button"id="btn">카테고리 추가</button>
 	<a class="btn btn-outline-secondary" href="<%=request.getContextPath() %>/category/categoryList.jsp">취소</a>
 	
 	</form>
