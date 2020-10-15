@@ -14,6 +14,33 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+	<script>
+	 $(document).ready(function() {
+		$("#btn").click(function(){
+			if($("#categoryId").val()=="카테고리선택"){
+				alert("카테고리를 선택해주세요");
+				return;
+			}else if($("#productName").val()==""){
+				alert("카테고리 이름을 입력해주세요");
+				return;
+			}else if($("#productPrice").val()==""){
+				alert("상품 가격을 입력해주세요 ");
+				return;
+			}else if($("#productContent").val()==""){
+				alert("상품내용을 입력해주세요");
+				return;
+			}else if($(".productSoldout:checked").val()==undefined){
+				alert("품절상태를 입력해주세요");
+				return;
+			}
+			$("#addProductForm").submit();
+			
+		});
+	});
+	</script>
 </head>
 <body>
 	<div>
@@ -45,7 +72,7 @@
 	<div class="container ">
 	<h1 class ="text-dark">상품 추가</h1>
 
-	<form method="post" action="/mall-admin/product/addProductAction.jsp">
+	<form method="post" action="/mall-admin/product/addProductAction.jsp" id="addProductForm">
 		<table class ="table table-bordered table-striped " style="text-align: center;">
 			<thead class="thead-light">
 				<tr>
@@ -59,7 +86,7 @@
 			<tbody>
 				<tr>
 
-					<td><select name="categoryId">
+					<td><select name="categoryId" id="categoryId">
 						<option>카테고리선택</option>
 							<%
 								for (Category c : categoryList) {
@@ -71,12 +98,12 @@
 							%>
 							
 					</select></td>
-					<td><input type="text" name="productName"></td>
-					<td><input type="text" name="productPrice"></td>
-					<td><textarea rows="1" cols="20" name="productContent"></textarea>
+					<td><input type="text" name="productName" id="productName"></td>
+					<td><input type="text" name="productPrice" id="productPrice"></td>
+					<td><textarea rows="1" cols="20" name="productContent" id="productContent"></textarea>
 					<td>
-						<input type ="radio" name="productSoldout" value="N">품절x
-						<input type ="radio" name="productSoldout" value="Y">품절
+						<input type ="radio" name="productSoldout" value="N" class="productSoldout">품절x
+						<input type ="radio" name="productSoldout" value="Y" class="productSoldout">품절
 						
 					</td>
 				</tr>
@@ -84,7 +111,7 @@
 			</tbody>
 
 		</table>
-		<button class="btn btn-outline-secondary " type="submit">추가</button>
+		<button class="btn btn-outline-secondary " type="button" id="btn">추가</button>
 		<a class="btn btn-outline-secondary" href="<%=request.getContextPath() %>/product/productList.jsp">취소</a>
 	</form>
 	<div class="navbar">

@@ -52,8 +52,7 @@
 		}else{
 			list = ordersDao.selectOrderListBystate(ordersState);
 		}		
-		ArrayList<String> stateList = null;
-		stateList = ordersDao.selectOrdersStateList();
+	
 
 	%>
 	
@@ -64,21 +63,47 @@
 	<form method ="post" action="/mall-admin/orders/ordersList.jsp">
 		 <select name ="ordersState">
 		 	<option>선택</option>
-		 	<%
-		 		for(String o: stateList){
-		 			if(o.equals(ordersState)){
-		 			%>
-		 				<option selected="selected"><%=o%></option>
-		 			<%
-		 			}else{
-		 				%>
-		 					<option><%=o %></option>
-		 				<%
-		 			}
-		 			
-		 		}
-		 		
-		 	%>
+		 		 	<%if(ordersState.equals("결제완료")){
+						 		%>
+						 		<option selected="selected">결제완료</option>
+						 		<%
+						 	}else {
+						 		%>
+						 		<option >결제완료</option>
+						 	<%
+						 	}
+						 	 %>
+						 	<%if(ordersState.equals("배송준비중")){
+						 		%>
+						 		<option selected="selected">배송준비중</option>
+						 		<%
+						 	}else {
+						 		%>
+						 		<option>배송준비중</option>
+						 	<%
+						 	}
+						 	 %>
+						 	<%if(ordersState.equals("배송완료")){
+						 		%>
+						 		<option selected="selected">배송완료</option>
+						 		<%
+						 	}else {
+						 		%>
+						 		<option >배송완료</option>
+						 	<%
+						 	}
+						 	 %>
+						 <%if(ordersState.equals("주문취소")){
+						 		%>
+						 		<option selected="selected">주문취소</option>
+						 		<%
+						 	}else {
+						 		%>
+						 		<option>주문취소</option>
+						 	<%
+						 	}
+						 	 %>
+						 	
 		 </select>
 		<button class="btn btn-outline-secondary" type ="submit">주문 상태별로 보기</button>
 	</form>

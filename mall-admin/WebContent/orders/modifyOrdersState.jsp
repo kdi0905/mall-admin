@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ page import ="vo.*" %>
 <%@ page import ="dao.*" %>
-<%@ page import ="java.util.*" %>
+
 <%
 	if(session.getAttribute("loginAdminId")==null){
-		response.sendRedirect("/mall-amdin/login.jsp");
+		response.sendRedirect("/mall-admin/login.jsp");
 		return;
 	}
 %>
@@ -27,6 +27,19 @@
 	}
 
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+	 $(document).ready(function(){
+		 $("#btn").click(function(){
+			if( $("#ordersState").val()=="선택"){
+				alert("배송상태를 입력해주세요");
+				return;
+			}
+			$("#ordersForm").submit();
+		 });
+	 });
+	</script>
 </head>
 <body>
 	<!-- 메뉴보기 -->
@@ -38,15 +51,6 @@
 		//한글 변환
 		request.setCharacterEncoding("utf-8");
 	
-		//페이징
-		int currentPage = 1;
-		if(request.getParameter("currentPage") != null){
-			currentPage=Integer.parseInt(request.getParameter("currentPage"));
-		}
-		int rowPerPage = 10;
-		int limit = (currentPage-1)*rowPerPage;
-		int limit2 = rowPerPage;
-		
 		//주문번호 받아오기
 		Orders orders = new Orders();
 		orders.setOrdersId(Integer.parseInt(request.getParameter("ordersId")));
@@ -55,8 +59,7 @@
 		OrdersDao ordersDao = new OrdersDao();
 		oap= ordersDao.selectOrdersOne(orders);
 		
-		ArrayList<String> stateList = null;
-		stateList = ordersDao.selectOrdersStateList();
+	
 		
 	%>
 	<div class ="color">
@@ -64,7 +67,7 @@
 	<!-- 제목 -->
 	<h1 class ="text-dark ">배송 상태 수정 </h1>
 	<!-- 상태 수정 값 액션 페이지에 넘기기 -->
-	<form method="post" action="modifyOrdersStateAction.jsp?ordersId=<%=orders.getOrdersId()%>">
+	<form method="post" id="ordersForm" action="modifyOrdersStateAction.jsp?ordersId=<%=orders.getOrdersId()%>">
 	<table class ="table table-bordered table-hover table-striped "  style="text-align: center;">
 		<thead class="thead-light">
 			<tr>
@@ -90,28 +93,56 @@
 				<td class ="text-dark "><%=oap.orders.getMemberEmail() %></td>
 				<td class ="text-dark "><%=oap.orders.getOrdersAddr() %></td>
 				<td class ="text-dark ">
-					<select name = "ordersState"> 
+					<select name = "ordersState" id="ordersState"> 
 						<option>선택</option>
+						 	<%if(oap.orders.getOrdersState().equals("결제완료")){
+						 		%>
+						 		<option selected="selected">결제완료</option>
+						 		<%
+						 	}else {
+						 		%>
+						 		<option >결제완료</option>
 						 	<%
-						 		for(String s : stateList){
-						 			if(s.equals(orders.getOrdersState())){
-						 			%>
-						 				<option selected="selected"><%=s%></option>
-						 			<%
-						 			}else{
-						 				%>
-						 					<option><%=s %></option>
-						 				<%
-						 			}
-						 		}
-						 	%>
+						 	}
+						 	 %>
+						 	<%if(oap.orders.getOrdersState().equals("배송준비중")){
+						 		%>
+						 		<option selected="selected">배송준비중</option>
+						 		<%
+						 	}else {
+						 		%>
+						 		<option>배송준비중</option>
+						 	<%
+						 	}
+						 	 %>
+						 	<%if(oap.orders.getOrdersState().equals("배송완료")){
+						 		%>
+						 		<option selected="selected">배송완료</option>
+						 		<%
+						 	}else {
+						 		%>
+						 		<option >배송완료</option>
+						 	<%
+						 	}
+						 	 %>
+						 <%if(oap.orders.getOrdersState().equals("주문취소")){
+						 		%>
+						 		<option selected="selected">주문취소</option>
+						 		<%
+						 	}else {
+						 		%>
+						 		<option>주문취소</option>
+						 	<%
+						 	}
+						 	 %>
+						 	
 					</select>
 				</td>
 				<td><%=oap.orders.getOrdersDate() %></td>
 		
 		</tbody>
 	</table>
-	<button class="btn btn-outline-secondary" type="submit">배송상태 수정</button>
+	<button class="btn btn-outline-secondary" type="button" id="btn">배송상태 수정</button>
 	</form>
 	</div><!-- 넖이 -->
 	</div><!--배경 -->

@@ -73,25 +73,7 @@ public class OrdersDao {
 		conn.close();
 		return list;
 	}
-		// 상태 출력
-	public ArrayList<String> selectOrdersStateList() throws Exception{
-		//commons클래스 안에있는 db접속 명령어를 불러온다
-		DBUtil dbUtil = new DBUtil();
-		Connection conn = dbUtil.getConnection();
-		String sql ="select distinct orders_state from orders ";
-						// distinct = 중복 없애기
-		PreparedStatement stmt = conn.prepareStatement(sql);
-	
-		ResultSet rs = stmt.executeQuery();
-		ArrayList<String> list = new ArrayList<String>();
-		String state;
-		while(rs.next()) {
-			state = rs.getString("orders_state");
-			list.add(state);
-		}
-		conn.close();
-		return list;
-	}
+
 	
 
 	//주문의 상태 업데이트

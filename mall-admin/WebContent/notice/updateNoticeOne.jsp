@@ -28,6 +28,22 @@ if (session.getAttribute("loginAdminId") == null) {
 	background-color: #E7E7E7;
 }
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$("#btn").click(function(){
+			if($("#noticeTitle").val()==""){
+				alert("공지사항 제목를 입력해주세요");
+				return;
+			}else if($("#noticeContent").val()==""){
+				alert("공지사항 내용을 입력해주세요");
+				return;
+			}
+			$("#noticeForm").submit();
+		});
+	})
+	</script>
 </head>
 <body>
 <div>
@@ -46,23 +62,23 @@ if (session.getAttribute("loginAdminId") == null) {
 		<div class="container "style="text-align: center;">
 			<h1 class="text-dark " >공지사항수정</h1>
 			
-			<form method="post" action="<%=request.getContextPath()%>/notice/updateNoticeOneAction.jsp">
+			<form method="post" id="noticeForm" action="<%=request.getContextPath()%>/notice/updateNoticeOneAction.jsp">
 				<table class ="table table-bordered table-striped ">
 					<tr>
 						<td >공지사항 번호</td>
-						<td><input type ="hidden" value ="<%=noticeId %>" name ="noticeId"><%=noticeId %></td>
+						<td><input type ="hidden" value ="<%=noticeId %>" name ="noticeId" ><%=noticeId %></td>
 					</tr>
 					<tr>
 						<td  >공지사항 제목</td>
-						<td  ><input type ="text" name="noticeTitle" value="<%=noticeTitle%>" > </td>
+						<td  ><input type ="text" name="noticeTitle" value="<%=noticeTitle%>" id="noticeTitle"> </td>
 					</tr>
 					<tr>
 						<td >공지사항 내용</td>
-						<td ><textarea rows="5" cols="70" name="noticeContent"><%=noticeContent %></textarea></td>
+						<td ><textarea rows="5" cols="70" name="noticeContent" id="noticeContent"><%=noticeContent %></textarea></td>
 					</tr>
 					
 				</table>
-				<button class="btn btn-outline-secondary" type="submit">공지사항 수정</button>
+				<button class="btn btn-outline-secondary" type="button" id="btn">공지사항 수정</button>
 				<a class="btn btn-outline-secondary" href="<%=request.getContextPath() %>/notice/noticeOne.jsp?noticeId=<%=noticeId%>">취소</a>
 			</form>
 

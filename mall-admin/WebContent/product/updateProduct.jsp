@@ -26,6 +26,34 @@
 	}
 
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+<script>
+     $(document).ready(function() {
+    	 $("#btn").click(function(){
+    		
+    		 if($("#categoryId").val()=="카테고리선택"){
+    			 alert("카테고리를 선택해주세요");
+    			 return;
+    		 }else if($("#productName").val()==""){
+    			 alert("제품이름을 입력해주세요");
+    			 return;
+    		 }else if($("#productPrice").val()==""){
+    			 alert("제품가격을 입력해주세요");
+    			 return;
+    		 }else if($("#productContent").val()==""){
+    			 alert("제품내용을 입력해주세요");
+    			 return;
+    		 }else if($(".productSoldout:checked").val()==undefined){
+    			 alert("품절상태를 선택해주세요");
+    			 return;
+    		 }
+    		 $("#productForm").submit();
+    	 })
+		
+	})
+</script>
 </head>
 <body>
 	<div>
@@ -64,7 +92,7 @@
 	<div class ="color">
 	<div class ="container " >
 	<h1 class ="text-dark ">상품 수정</h1>
-	<form method="post" action="/mall-admin/product/updateProductAction.jsp?productId=<%=productId%>">
+	<form method="post" id="productForm" action="/mall-admin/product/updateProductAction.jsp?productId=<%=productId%>">
 		<table class ="table table-bordered table-striped "  style="text-align: center;">
 			<thead class="thead-light">
 				<tr>
@@ -79,7 +107,7 @@
 			<tbody>
 				<tr>
 					<td>
-					<select name="categoryId" >
+					<select name="categoryId" id="categoryId" >
 						<option>카테고리선택</option>
 						<%
 							for (Category c : categoryList) {
@@ -99,20 +127,20 @@
 
 					</select>
 					</td>
-					<td><input type="text" name="productName" value=<%=productName%>></td>
-					<td><input type="text" name="productPrice" value=<%=productPrice%> ></td>
-					<td><textarea rows="1" cols="20" name="productContent"><%=productContent%></textarea>
+					<td><input type="text" name="productName" value=<%=productName%> id="productName"></td>
+					<td><input type="text" name="productPrice" value=<%=productPrice%> id="productPrice"></td>
+					<td><textarea rows="1" cols="20" name="productContent" id="productContent"><%=productContent%></textarea>
 					<td>
 						<%
 						System.out.println(productSoldout+"<---productSoldout");
 							if(productSoldout.equals("Y")){	 		
-						%> 		<input type="radio" name="productSoldout" value=N>품절x 
-								<input type="radio" name="productSoldout" value=Y checked="checked">품절
+						%> 		<input type="radio" class="productSoldout" name="productSoldout" value=N>품절x 
+								<input type="radio" class="productSoldout" name="productSoldout" value=Y checked="checked">품절
 						<%
 							} else {
 						%>		
-								<input type="radio" name="productSoldout" value=N checked="checked">품절x 
-								<input type="radio" name="productSoldout" value=Y >품절
+								<input type="radio" class="productSoldout" name="productSoldout" value=N checked="checked">품절x 
+								<input type="radio" class="productSoldout" name="productSoldout" value=Y >품절
 						<%
 							}
 						%>
@@ -120,7 +148,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<button class="btn btn-outline-secondary" type="submit">제품 수정하기</button>
+		<button class="btn btn-outline-secondary" type="button" id="btn">제품 수정하기</button>
 			<a class="btn btn-outline-secondary" href="<%=request.getContextPath() %>/product/productList.jsp">취소</a>
 	</form>
 	<div class="navbar">

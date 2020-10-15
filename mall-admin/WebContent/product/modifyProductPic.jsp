@@ -23,6 +23,18 @@
 	background-color: #FFFFFF;
 }
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+<script >
+	$(document).ready(function() {
+		$("#btn").click(function(){
+			if($("#productPic").val()==""){
+				alert("사진을 넣어주세요");
+			}
+		})
+	})
+</script>
 </head>
 <body>
 	<%
@@ -40,7 +52,7 @@
 			<!-- <form	action="" method="post" enctype="application/x-www-form-urlencoded"> -->
 			<!-- 모든글자를 파일로 넘긴다(이미지수정) 받을때 string으로 받는다  int로 받으면 오류 -->
 
-			<form
+			<form id="productPicForm"
 				action="<%=request.getContextPath()%>/product/modifyProductPicAction.jsp"
 				method="post" enctype="multipart/form-data">
 				<table class="table table-bordered table-hover table-striped "
@@ -51,10 +63,10 @@
 							value="<%=productId%>"></td>
 
 						<td>이미지 선택 :</td>
-						<td><input type="file" name="productPic"></td>
+						<td><input type="file" name="productPic" id="productPic"></td>
 				</table>
 				<div>
-					<button class="btn btn-outline-secondary " type="submit">이미지 수정</button>
+					<button class="btn btn-outline-secondary " type="button" id="btn">이미지 수정</button>
 					<a class="btn btn-outline-secondary" href="<%=request.getContextPath()%>/product/productOne.jsp?productId=<%=productId%>">취소</a>
 				</div>
 
